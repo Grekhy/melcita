@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#c5a3ff">
+<meta name="description" content="Cartas y escritos para mi Melcita.">
+<title>Para mi Melcita</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%9C%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   1. VARIABLES DE DISEÑO
+   Paleta: violetas. Para cambiar colores, editá solo este bloque.
+   ========================================================= */
+:root {
+  --p1: #b28dff;  --p2: #bc98ff;  --p3: #c5a3ff;  --p4: #d1b1ff;  --p5: #d7b8ff;
+  --p6: #dcbfff;  --p7: #e3c7ff;  --p8: #e9cfff;  --p9: #f2daff;  --p10: #fbe4ff;
+
+  --ink: #3a2268;
+  --ink-soft: #6a4fa3;
+  --seal: #8a5cf0;
+  --paper: #fffaff;
+  --line: rgba(58, 34, 104, .13);
+  --glass: rgba(255, 255, 255, .38);
+
+  --font-title: "Fraunces", Georgia, serif;
+  --font-hand: "Caveat", "Segoe Print", cursive;
+  --font-body: "Karla", "Segoe UI", sans-serif;
+
+  /* Tamaño del sobre: todo lo demás se calcula a partir del ancho */
+  --w: 190px;
+  --h: calc(var(--w) * 0.663);
+  --gap: 20px;
+  --line-h: 36px;
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+* { box-sizing: border-box; }
+* { margin: 0; }
+[hidden] { display: none !important; }
+
+html { background: var(--p10); }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  font-family: var(--font-body);
+  background:
+    radial-gradient(1200px 700px at 8% -8%, var(--p10) 0%, rgba(251, 228, 255, 0) 60%),
+    radial-gradient(1000px 800px at 100% 0%, rgba(197, 163, 255, .55) 0%, rgba(197, 163, 255, 0) 55%),
+    linear-gradient(160deg, var(--p10) 0%, var(--p8) 48%, var(--p5) 100%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Puntitos muy suaves de fondo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(58, 34, 104, .14) 1px, transparent 1.3px);
+  background-size: 26px 26px;
+  opacity: .18;
+}
+
+body.is-locked { overflow: hidden; }
+
+::selection { background: var(--seal); color: #fff; }
+
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* =========================================================
+   3. BARRA SUPERIOR Y NAVEGACIÓN
+   ========================================================= */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px clamp(16px, 4vw, 40px);
+  background: rgba(251, 228, 255, .62);
+  border-bottom: 1px solid rgba(255, 255, 255, .55);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .topbar { background: rgba(251, 228, 255, .94); }
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--seal);
+  color: var(--p10);
+  font-family: var(--font-body);
+  font-size: .78rem;
+  box-shadow: 0 4px 10px -4px rgba(58, 34, 104, .65);
+  transition: transform .3s ease;
+}
+.brand:hover .brand-mark { transform: rotate(-12deg) scale(1.06); }
+
+.nav {
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .32);
+  border: 1px solid rgba(255, 255, 255, .7);
+  box-shadow: 0 4px 18px -12px rgba(58, 34, 104, .45);
+}
+.nav a {
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: .88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color .2s ease, background .2s ease;
+}
+.nav a:hover { color: var(--ink); background: rgba(255, 255, 255, .5); }
+.nav a[aria-current="page"] {
+  background: var(--ink);
+  color: var(--p10);
+  box-shadow: 0 6px 14px -8px rgba(58, 34, 104, .85);
+}
+
+/* =========================================================
+   4. ESTRUCTURA DE LAS VISTAS
+   ========================================================= */
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 40px) clamp(56px, 8vw, 96px);
+}
+
+.view { display: none; }
+.view.is-active {
+  display: block;
+  animation: viewIn .5s cubic-bezier(.2, .8, .2, 1) backwards;
+}
+
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink-soft);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.eyebrow::before,
+.eyebrow::after {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: currentColor;
+  opacity: .45;
+}
+
+.section-head {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  margin-bottom: clamp(18px, 3vw, 28px);
+  text-align: center;
+}
+.section-head h1,
+.writings-aside h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+}
+.section-sub {
+  max-width: 56ch;
+  color: var(--ink-soft);
+  font-size: clamp(.95rem, 2.2vw, 1.02rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+/* =========================================================
+   5. INICIO
+   ========================================================= */
+.hero {
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 2.2vw, 22px);
+  padding-top: clamp(8px, 2vw, 24px);
+  text-align: center;
+}
+.hero-seal {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  margin-bottom: 2px;
+  border-radius: 50%;
+  color: var(--p10);
+  font-size: 1.35rem;
+  background: radial-gradient(circle at 35% 30%, #a97bff, #7d4be8);
+  box-shadow:
+    0 12px 24px -10px rgba(58, 34, 104, .65),
+    inset 0 0 0 3px rgba(255, 255, 255, .2);
+}
+.hero-title {
+  font-family: var(--font-title);
+  font-size: clamp(2.7rem, 8vw, 5.2rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -.04em;
+  text-wrap: balance;
+}
+.hero-title em {
+  color: var(--seal);
+  font-style: italic;
+  font-weight: 500;
+}
+.hero-sub {
+  max-width: 52ch;
+  color: var(--ink-soft);
+  font-size: clamp(.98rem, 2.2vw, 1.12rem);
+  line-height: 1.65;
+  text-wrap: pretty;
+}
+
+.gifts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.5vw, 26px);
+  width: min(900px, 100%);
+  margin: clamp(28px, 5vw, 44px) auto 0;
+  text-align: left;
+}
+.gift {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 320px;
+  padding: clamp(22px, 3vw, 30px);
+  overflow: hidden;
+  color: inherit;
+  text-decoration: none;
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, .75);
+  border-radius: 26px;
+  box-shadow: 0 24px 50px -30px rgba(58, 34, 104, .55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform .3s ease, background .3s ease, box-shadow .3s ease;
+  animation: rise .5s ease backwards;
+}
+.gift:nth-child(2) { animation-delay: .09s; }
+
+.gift::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--seal), transparent);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.gift::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  bottom: -90px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(178, 141, 255, .38), transparent 70%);
+  pointer-events: none;
+}
+.gift:hover,
+.gift:focus-visible {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, .58);
+  box-shadow: 0 32px 58px -30px rgba(58, 34, 104, .65);
+}
+.gift:hover::before { opacity: .8; }
+
+.gift-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.gift-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 6px;
+  color: var(--ink-soft);
+  font-size: .69rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.gift-badge {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--seal);
+  color: #fff;
+  font-size: .58rem;
+  letter-spacing: .1em;
+}
+.gift-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, .85);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(178, 141, 255, .38), rgba(255, 255, 255, .7));
+  color: var(--seal);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+  transition: transform .3s ease;
+}
+.gift-icon svg { width: 30px; height: 30px; }
+.gift:hover .gift-icon { transform: rotate(-4deg) scale(1.04); }
+
+.gift h2 {
+  font-family: var(--font-title);
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+}
+.gift p {
+  max-width: 36ch;
+  color: var(--ink-soft);
+  font-size: .96rem;
+  line-height: 1.6;
+}
+.gift-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+  color: var(--ink);
+  font-size: .88rem;
+  font-weight: 700;
+}
+.gift-cta .arrow { transition: transform .25s ease; }
+.gift:hover .gift-cta .arrow { transform: translateX(4px); }
+
+.home-note {
+  margin-top: clamp(26px, 4vw, 40px);
+  color: var(--ink-soft);
+  font-family: var(--font-hand);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  text-align: center;
+}
+
+/* =========================================================
+   6. CARTAS (SOBRES)
+   ========================================================= */
+.letters {
+  width: min(960px, 100%);
+  margin: 0 auto;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, var(--w));
+  justify-content: center;
+  column-gap: var(--gap);
+  row-gap: calc(var(--h) * .5 + 28px);
+  padding-top: calc(var(--h) * .5 + 38px);
+}
+
+.envelope {
+  position: relative;
+  width: var(--w);
+  height: var(--h);
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: none;
+  perspective: 600px;
+  transition: transform .25s ease, opacity .3s ease;
+  animation: rise .5s ease backwards;
+}
+.envelope:nth-child(2n) { animation-delay: .05s; }
+.envelope:nth-child(3n) { animation-delay: .1s; }
+.envelope:hover { transform: translateY(-6px) rotate(-1.5deg); }
+.envelope:nth-child(even):hover { transform: translateY(-6px) rotate(1.5deg); }
+.envelope:focus-visible { outline: 3px solid var(--ink); outline-offset: 6px; border-radius: 8px; }
+
+.envelope .body {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background:
+    linear-gradient(to top right, transparent 49.5%, rgba(58, 34, 104, .12) 50%, transparent 50.6%) left / 50% 100% no-repeat,
+    linear-gradient(to top left, transparent 49.5%, rgba(58, 34, 104, .12) 50%, transparent 50.6%) right / 50% 100% no-repeat,
+    linear-gradient(180deg, var(--p4), var(--p2));
+  box-shadow: 0 10px 22px -10px rgba(58, 34, 104, .45);
+}
+.envelope .paper {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 8%;
+  height: 76%;
+  z-index: 1;
+  border-radius: 4px;
+  background: var(--p10);
+  transition: transform .5s ease;
+}
+.envelope .flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 50%;
+  z-index: 3;
+  background: linear-gradient(180deg, var(--p6), var(--p3));
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform .5s ease;
+}
+.envelope .seal {
+  position: absolute;
+  left: 50%;
+  top: 41%;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 16%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  color: var(--p10);
+  font-size: calc(var(--w) * .075);
+  background: var(--seal);
+  box-shadow: 0 2px 6px rgba(58, 34, 104, .4);
+  transform: translateX(-50%);
+  transition: opacity .2s ease;
+}
+.envelope.is-open .flap { z-index: 0; transform: rotateX(180deg); }
+.envelope.is-open .seal { opacity: 0; }
+.envelope.is-open .paper { transform: translateY(-30%); }
+.envelope.is-read { opacity: .72; }
+
+.done {
+  min-height: 1.5em;
+  margin-top: 40px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* =========================================================
+   7. VENTANAS EMERGENTES (CARTAS Y ESCRITOS)
+   ========================================================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: clamp(10px, 3vw, 28px);
+  background: rgba(58, 34, 104, .5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility 0s linear .3s;
+}
+.overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s ease, visibility 0s;
+}
+
+/* ---------- Carta ---------- */
+.letter {
+  width: min(560px, 100%);
+  max-height: min(86vh, 800px);
+  overflow-y: auto;
+  padding: 40px 34px 26px;
+  color: var(--ink);
+  text-align: left;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    transparent 0 calc(var(--line-h) - 1px),
+    rgba(178, 141, 255, .25) calc(var(--line-h) - 1px) var(--line-h)
+  );
+  background-position: 0 40px;
+  border-radius: 8px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .45);
+  transform: translateY(34px) rotate(-.8deg);
+  transition: transform .45s cubic-bezier(.2, .8, .2, 1);
+  scrollbar-width: thin;
+}
+.overlay.is-visible .letter { transform: none; }
+
+.letter h2 {
+  margin-bottom: 18px;
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.letter p {
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  line-height: var(--line-h);
+  white-space: pre-line;
+}
+.letter .signature {
+  margin-top: 18px;
+  color: var(--ink-soft);
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 28px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--seal);
+  color: #fff;
+  font: 700 .95rem var(--font-body);
+  cursor: pointer;
+  transition: filter .2s ease, transform .2s ease, background .2s ease;
+}
+.btn:hover { filter: brightness(1.09); }
+.btn:active { transform: translateY(1px); }
+.btn[disabled] { opacity: .35; cursor: not-allowed; filter: none; }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover { filter: none; background: rgba(255, 255, 255, .5); }
+
+/* ---------- Lector de escritos ---------- */
+.reader-overlay { z-index: 70; }
+
+.reader {
+  position: relative;
+  width: min(780px, 100%);
+  max-height: min(88vh, 900px);
+  overflow-y: auto;
+  padding: clamp(42px, 6vw, 58px) clamp(22px, 5vw, 56px) clamp(28px, 4vw, 44px);
+  background: var(--paper);
+  border-radius: 14px;
+  box-shadow: 0 40px 80px -30px rgba(20, 10, 40, .6);
+  outline: none;
+  transform: translateY(28px) scale(.985);
+  transition: transform .4s cubic-bezier(.2, .8, .2, 1);
+  scrollbar-width: thin;
+}
+.overlay.is-visible .reader { transform: none; }
+
+.reader-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .72);
+  color: var(--ink-soft);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.reader-close:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--p10);
+}
+
+.reader-kicker {
+  padding-right: 40px;
+  color: var(--seal);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.reader h2 {
+  margin: 10px 0 22px;
+  padding-right: 30px;
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+.reader-body { color: #44306e; }
+.reader-body p {
+  font-size: clamp(1rem, 2.2vw, 1.06rem);
+  line-height: 1.85;
+  white-space: pre-line;
+  text-wrap: pretty;
+}
+.reader-body p + p { margin-top: 1.05em; }
+.reader-signature {
+  margin-top: 26px;
+  color: var(--ink-soft);
+  font-family: var(--font-hand);
+  font-size: 1.55rem;
+  text-align: right;
+}
+.reader-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+/* =========================================================
+   8. ESCRITOS
+   ========================================================= */
+.writings {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: start;
+}
+.writings-aside {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+}
+.writings-aside .eyebrow::before { display: none; }
+.writings-aside h1 { font-size: clamp(2.4rem, 5vw, 3.8rem); }
+.writings-aside .section-sub { max-width: 40ch; }
+
+.writings-count {
+  color: rgba(106, 79, 163, .8);
+  font-size: .76rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.aside-note {
+  max-width: 26ch;
+  margin-top: 4px;
+  color: var(--ink-soft);
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  line-height: 1.25;
+}
+
+.writings-list { display: grid; gap: 14px; }
+
+.writing-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+  padding: 22px 24px;
+  overflow: hidden;
+  color: inherit;
+  text-align: left;
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, .75);
+  border-radius: 20px;
+  box-shadow: 0 16px 34px -26px rgba(58, 34, 104, .5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+  animation: rise .5s ease backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+.writing-card::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--seal);
+  opacity: 0;
+  transform: scaleY(.2);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.writing-card:hover,
+.writing-card:focus-visible {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, .62);
+  box-shadow: 0 24px 44px -28px rgba(58, 34, 104, .6);
+}
+.writing-card:hover::before,
+.writing-card:focus-visible::before { opacity: .8; transform: scaleY(1); }
+
+.writing-index {
+  min-width: 1.7ch;
+  padding-top: 2px;
+  color: var(--seal);
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.writing-main {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+.writing-meta {
+  color: var(--ink-soft);
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.writing-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.15rem, 2.6vw, 1.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+.writing-excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: .9rem;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.writing-arrow {
+  padding-top: 2px;
+  color: var(--seal);
+  font-size: 1.1rem;
+  transition: transform .25s ease;
+}
+.writing-card:hover .writing-arrow { transform: translateX(4px); }
+
+.writing-empty {
+  padding: 34px 26px;
+  color: var(--ink-soft);
+  text-align: center;
+  background: var(--glass);
+  border: 1px dashed rgba(58, 34, 104, .2);
+  border-radius: 20px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   9. PIE DE PÁGINA
+   ========================================================= */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  padding: 26px clamp(16px, 4vw, 40px) 34px;
+  text-align: center;
+  color: rgba(106, 79, 163, .78);
+}
+.site-footer .hand {
+  color: var(--ink-soft);
+  font-family: var(--font-hand);
+  font-size: 1.35rem;
+}
+.site-footer .tiny {
+  margin-top: 2px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   10. RESPONSIVE
+   ========================================================= */
+@media (max-width: 900px) {
+  :root { --w: min(190px, calc((100vw - 72px - 3 * var(--gap)) / 4)); }
+
+  .writings { grid-template-columns: 1fr; gap: 30px; }
+  .writings-aside { position: static; gap: 14px; }
+  .writings-aside .section-sub { max-width: 70ch; }
+  .aside-note { display: none; }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --gap: 22px;
+    --w: min(210px, calc((100vw - 36px - var(--gap)) / 2));
+  }
+  main { padding-inline: 18px; }
+  .gifts { grid-template-columns: 1fr; max-width: 520px; }
+  .gift { min-height: 0; }
+  .grid {
+    grid-template-columns: repeat(2, var(--w));
+    row-gap: calc(var(--h) * .5 + 36px);
+  }
+}
+
+@media (max-width: 560px) {
+  .topbar { gap: 8px; padding: 10px 14px; }
+  .brand { font-size: 1.22rem; }
+  .brand-text { display: none; }
+  .nav a { padding: 8px 12px; font-size: .82rem; }
+
+  .eyebrow { gap: 8px; font-size: .64rem; letter-spacing: .13em; }
+  .eyebrow::before,
+  .eyebrow::after { width: 16px; }
+
+  .hero-seal { width: 50px; height: 50px; font-size: 1.15rem; }
+  .gift { padding: 22px; border-radius: 22px; }
+  .gift-icon { width: 50px; height: 50px; border-radius: 16px; }
+
+  .letter { padding: 34px 22px 20px; --line-h: 33px; }
+  .letter p { font-size: 1.4rem; }
+
+  .reader { max-height: 92vh; border-radius: 12px; }
+  .reader h2 { font-size: 1.85rem; }
+  .reader-nav { gap: 8px; }
+  .reader-nav .btn { flex: 1; padding: 10px 12px; font-size: .88rem; }
+
+  .writing-card { grid-template-columns: auto 1fr; padding: 18px 18px; gap: 12px; }
+  .writing-arrow { display: none; }
+  .writings-aside h1 { font-size: 2.4rem; }
+}
+
+@media (max-width: 380px) {
+  .nav a { padding: 7px 9px; font-size: .78rem; }
+  .brand-mark { width: 27px; height: 27px; }
+  .writing-index { font-size: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#inicio" aria-label="Ir al inicio">
+    <span class="brand-mark" aria-hidden="true">♥</span>
+    <span class="brand-text">Para mi Melcita</span>
+  </a>
+  <nav class="nav" aria-label="Secciones">
+    <a href="#inicio" data-nav="inicio">Inicio</a>
+    <a href="#cartas" data-nav="cartas">Cartas</a>
+    <a href="#escritos" data-nav="escritos">Escritos</a>
+  </nav>
+</header>
+
+<main id="contenido">
+
+  <!-- ==================== INICIO ==================== -->
+  <section class="view" data-view="inicio" aria-label="Inicio">
+    <div class="hero">
+      <div class="hero-seal" aria-hidden="true">♥</div>
+      <p class="eyebrow" id="home-eyebrow"></p>
+      <h1 class="hero-title" id="home-title"></h1>
+      <p class="hero-sub" id="home-subtitle"></p>
+    </div>
+
+    <div class="gifts">
+      <a class="gift" href="#cartas">
+        <div class="gift-top">
+          <span class="gift-number" id="gift-letters-number"></span>
+          <span class="gift-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <rect x="6.5" y="12.5" width="35" height="24" rx="4" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M8 15l16 12 16-12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M24 33.5s-4.6-2.9-4.6-5.7a2.7 2.7 0 014.6-1.9 2.7 2.7 0 014.6 1.9c0 2.8-4.6 5.7-4.6 5.7z" fill="currentColor" opacity=".85"/>
+            </svg>
+          </span>
+        </div>
+        <h2 id="gift-letters-title"></h2>
+        <p id="gift-letters-desc"></p>
+        <span class="gift-cta"><span id="gift-letters-cta"></span> <span class="arrow" aria-hidden="true">→</span></span>
+      </a>
+
+      <a class="gift" href="#escritos">
+        <div class="gift-top">
+          <span class="gift-number"><span id="gift-writings-number"></span> <span class="gift-badge" id="new-badge"></span></span>
+          <span class="gift-icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none">
+              <path d="M12 7.5h17l8 8v25H12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M29 7.5v8h8" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M17 23h14M17 29h14M17 35h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M33 20.5l5.5-5.5 3 3-5.5 5.5-4 1 1-4z" fill="currentColor" opacity=".85"/>
+            </svg>
+          </span>
+        </div>
+        <h2 id="gift-writings-title"></h2>
+        <p id="gift-writings-desc"></p>
+        <span class="gift-cta"><span id="gift-writings-cta"></span> <span class="arrow" aria-hidden="true">→</span></span>
+      </a>
+    </div>
+
+    <p class="home-note" id="home-note"></p>
+  </section>
+
+  <!-- ==================== CARTAS ==================== -->
+  <section class="view" data-view="cartas" aria-label="Las cartas">
+    <div class="letters">
+      <header class="section-head">
+        <p class="eyebrow" id="letters-eyebrow"></p>
+        <h1 id="letters-title"></h1>
+        <p class="section-sub" id="letters-subtitle"></p>
+      </header>
+      <div class="grid" id="grid"></div>
+      <p class="done" id="done" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- ==================== ESCRITOS ==================== -->
+  <section class="view" data-view="escritos" aria-label="Escritos">
+    <div class="writings">
+      <aside class="writings-aside">
+        <p class="eyebrow" id="writings-eyebrow"></p>
+        <h1 id="writings-title"></h1>
+        <p class="section-sub" id="writings-subtitle"></p>
+        <p class="writings-count" id="writings-count" aria-live="polite"></p>
+        <p class="aside-note" id="writings-note"></p>
+      </aside>
+      <div class="writings-list" id="writings-list"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p class="hand" id="footer-text"></p>
+  <p class="tiny" id="footer-small"></p>
+</footer>
+
+<!-- Ventana de una carta -->
+<div class="overlay" id="letter-overlay" role="dialog" aria-modal="true" aria-labelledby="letter-title" aria-hidden="true">
+  <article class="letter">
+    <h2 id="letter-title"></h2>
+    <p id="letter-text"></p>
+    <p class="signature" id="letter-signature"></p>
+    <div class="actions">
+      <button class="btn" id="close-btn" type="button"></button>
+    </div>
+  </article>
+</div>
+
+<!-- Lector de escritos -->
+<div class="overlay reader-overlay" id="writing-overlay" role="dialog" aria-modal="true" aria-labelledby="writing-title" aria-hidden="true">
+  <article class="reader" id="reader" tabindex="-1">
+    <button class="reader-close" id="reader-close" type="button">✕</button>
+    <p class="reader-kicker" id="writing-kicker"></p>
+    <h2 id="writing-title"></h2>
+    <div class="reader-body" id="writing-body"></div>
+    <p class="reader-signature" id="writing-signature"></p>
+    <div class="reader-nav">
+      <button class="btn btn-ghost" id="prev-writing" type="button"><span aria-hidden="true">←</span> Anterior</button>
+      <button class="btn" id="next-writing" type="button">Siguiente <span aria-hidden="true">→</span></button>
+    </div>
+  </article>
+</div>
+
+<script>
+/* =========================================================
+   ★ CONFIGURACIÓN — ACÁ CAMBIÁS TODO ★
+   Todo lo que aparece en el sitio sale de este bloque.
+   ========================================================= */
+const CONFIG = {
+
+  /* ---------- Textos generales ---------- */
+  texts: {
+    pageTitle: "Para mi Melcita 💜",
+    signature: "— Tu Benjamino",
+
+    home: {
+      eyebrow:      "Un lugarcito hecho para vos",
+      title:        "Para mi Melcita",
+      subtitle:     "Todo lo que te quiero decir, guardado en un solo lugar. Elegí por dónde empezar.",
+      note:         "Y esto recién empieza…",
+      newBadge:     "Nuevo",
+      lettersNumber:  "Regalo 01",
+      lettersTitle:   "Las cartas",
+      lettersDesc:    "Sobres con pedacitos de todo lo que siento. El primero de todos los regalos.",
+      lettersCta:     "Abrir las cartas",
+      writingsNumber: "Regalo 02",
+      writingsTitle:  "Escritos",
+      writingsDesc:   "Palabras que no entraron en una carta y se quedaron acá.",
+      writingsCta:    "Entrar a los escritos"
+    },
+
+    letters: {
+      eyebrow:       "Regalo 01",
+      title:         "Las cartas",
+      subtitle:      "Elegí una carta. Cada una tiene algo que quiero decirte.",
+      closeButton:   "Cerrar",
+      allRead:       "Ya leíste todo… pero siempre va haber algo más que te quiera decir, no me van alcanzar las palabras para decirte cuánto te amo y todo lo que te quiero dar 💜",
+      envelopeLabel: "Abrir carta",
+      sealSymbol:    "♥",
+      empty:         "Todavía no hay cartas cargadas."
+    },
+
+    writings: {
+      eyebrow:       "Regalo 02",
+      title:         "Escritos",
+      subtitle:      "Todos los escritos, en un solo lugar: mi corazón expresando mi amor por vos",
+      note:          "Lo que no entra en una carta también merece quedarse.",
+      countSingular: "escrito",
+      countPlural:   "escritos",
+      empty:         "Todavía no hay escritos acá. Pronto va a aparecer el primero.",
+      signature:     "— Tu Benjamino",
+      closeLabel:    "Cerrar escrito"
+    },
+
+    footer:      "Hecho con todo mi amor, para mi Melcita.",
+    footerSmall: "Benjamino"
+  },
+
+  /* ---------- Cartas ---------- */
+  letters: {
+    // Cantidad de sobres. Si es mayor que la cantidad de mensajes, se usa
+    // la cantidad de mensajes (no hay sobres vacíos).
+    envelopeCount: 8,
+
+    // true  = no se repite un mensaje hasta haber mostrado todos.
+    // false = cada carta elige un mensaje al azar, pudiendo repetirse.
+    avoidRepeats: true,
+
+    messages: [
+      { title: "Tulipán",
+        text:  "Quiero que sepas que mi cariño nunca se marchitará.\nPor eso elegí este tulipán de tu color favorito: para que cada vez que lo mires, recuerdes el amor que siento por vos." },
+
+      { title: "Broche",
+        text:  "El broche sostiene tu precioso pelo, pero vos sostenés mi mundo, no lo olvides Melcita.\nMe cautiva el brillo y el encanto de tu pelo, es tan hermoso, me pierdo en tanta belleza..." },
+
+      { title: "Espejo",
+        text:  "Lo elegí en violeta, sí, porque te gusta y tiene una forma de espejo, pero en realidad es un pretexto para decirte cuánto te amo y lo hermosa que sos <3." },
+
+      { title: "Lapiceras",
+        text:  "Acordate de que acá tenés a alguien que cree en vos y te admira con todo lo que te esforzas, me encantaría que las utilices, te adoro." },
+
+      { title: "Marcapáginas",
+        text:  "Espero que te guste, a mí me pareció muy bonito y tenía que regalartelo. En algún momento te va a servir, así no te perdés en todos los libros que vas a leer, la mayoría manhwas seguro, mi linda fujoshi." },
+
+      { title: "Naruto",
+        text:  "Sabía que querías un peluche y quería regalarte este, quiero que sepas que te amo, y mucho! me daría algo de vergüenza decirte todo esto con mi voz, decidí escribirtelo todo acá para que lo leas, mi Melcita." },
+
+      { title: "Monedero",
+        text:  "Es adorable como vos; pero todavía no lo abras. Guardé dos regalos más dentro, pero no sé si te van a agradar, mi Melcita. Si te agradan, yo sería el más feliz del mundo." },
+
+      { title: "Mi melcita",
+        text:  "Espero que te esté gustando <3. Quise hacer algo lindo con mucho amor y quiero que recuerdes que sos muy especial para mí. Otra cosa, si notaste que los listones de la bolsita están medio chuecos o no quedaron perfectos, es porque los hice yo con todo mi amor y nunca había hecho algo así xd." }
+    ]
+  },
+
+  /* ---------- Escritos ----------
+     Agregá, borrá o editá libremente. Cada escrito tiene:
+       title:     título
+       excerpt:   texto corto que se ve en la lista (opcional)
+       text:      el escrito completo. Usá \n\n para separar párrafos.
+       signature: firma propia (opcional; si no se pone, usa la general)
+     No hay categorías: todos los escritos se muestran juntos. */
+  writings: [
+    {
+      id: "tu-risa",
+      title: "Tu risa",
+      excerpt: "No es solo una risa linda, es una melodía que me cautiva y enamora.",
+      text: `No es solo una risa linda, es una melodía que me cautiva y enamora, la que se te escapa cuando estás nerviosa, o cuando te reís de algo, es adorable...
+
+Acordate que siempre seré ese alguien que aprendió a querer los días normales porque vos los volvés especial cuando estás presente.`
+    },
+
+    {
+      id: "yo-me-quedo",
+      title: "Yo me quedo",
+      excerpt: "Me quedo en los días que brillan, me quedo en los que pesan un montón.",
+      text: `Yo me quedo.
+Me quedo en los días que brillan,
+me quedo en los que pesan un montón,
+y voy aprendiendo, despacito,
+una forma nueva de cuidarte y hacerte feliz.
+
+Y si un día se me acaban las palabras,
+te voy a amar demostrándolo:
+con un abrazo que no suelta,
+con un tereré hecho por mí,
+con las manos te acariciaré,
+y en silencio pensaré en ti,
+y con todo eso lindo que a veces no me sale decir.`
+    },
+
+    {
+      id: "dias-malos",
+      title: "Para los días malos",
+      excerpt: "No te voy a decir que todo va a estar bien siempre, pero sí te puedo prometer que no vas a estar sola.",
+      text: `No te voy a decir que todo va a estar bien siempre,
+pero sí te puedo prometer que no vas a estar sola:
+voy a estar ahí, a tu lado, para escucharte y consolarte.
+Porque no quiero que nunca se apague el brillo de tus ojos <3`
+    },
+
+    {
+      id: "cuando-te-extrano",
+      title: "Cuando te extraño",
+      excerpt: "Cuando te extraño, mi mano busca la tuya aunque no estés.",
+      text: `Me di cuenta de que cuando te extraño mi mano busca la tuya aunque no estés, tus mensajes en cualquier momento, y extraño la forma en la que me mirás y sonreís cuando yo lo hago, me encanta extrañarte y finalmente que llegue el momento de estar a tu lado <3`
+    }
+  ]
+};
+
+/* =========================================================
+   LÓGICA — no hace falta editar de acá para abajo
+   ========================================================= */
+const $ = (id) => document.getElementById(id);
+
+const setText = (id, value) => {
+  const el = $(id);
+  if (el) el.textContent = value;
+};
+
+const { texts, letters: lettersConfig } = CONFIG;
+const WRITINGS = Array.isArray(CONFIG.writings) ? CONFIG.writings.map((w, i) => ({
+  ...w,
+  id: w.id || `escrito-${i + 1}`
+})) : [];
+
+/** Mezcla un array con Fisher-Yates y devuelve una copia nueva. */
+function shuffle(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/** Minutos de lectura aproximados. */
+function readingTime(text) {
+  const words = String(text || "").trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 180));
+}
+
+/** Extracto para la lista de escritos. */
+function excerptOf(w) {
+  if (w.excerpt) return w.excerpt;
+  const clean = String(w.text || "").replace(/\s+/g, " ").trim();
+  return clean.length > 140 ? clean.slice(0, 140).trimEnd() + "…" : clean;
+}
+
+/* ---------- Textos de la página ---------- */
+setText("home-eyebrow", texts.home.eyebrow);
+setText("home-subtitle", texts.home.subtitle);
+setText("home-note", texts.home.note);
+setText("gift-letters-number", texts.home.lettersNumber);
+setText("gift-letters-title", texts.home.lettersTitle);
+setText("gift-letters-desc", texts.home.lettersDesc);
+setText("gift-letters-cta", texts.home.lettersCta);
+setText("gift-writings-number", texts.home.writingsNumber);
+setText("gift-writings-title", texts.home.writingsTitle);
+setText("gift-writings-desc", texts.home.writingsDesc);
+setText("gift-writings-cta", texts.home.writingsCta);
+setText("new-badge", texts.home.newBadge);
+$("new-badge").hidden = !texts.home.newBadge;
+
+setText("letters-eyebrow", texts.letters.eyebrow);
+setText("letters-title", texts.letters.title);
+setText("letters-subtitle", texts.letters.subtitle);
+setText("close-btn", texts.letters.closeButton);
+
+setText("writings-eyebrow", texts.writings.eyebrow);
+setText("writings-title", texts.writings.title);
+setText("writings-subtitle", texts.writings.subtitle);
+setText("writings-note", texts.writings.note);
+$("reader-close").setAttribute("aria-label", texts.writings.closeLabel);
+
+setText("footer-text", texts.footer);
+setText("footer-small", texts.footerSmall);
+
+/* Título del inicio: la última palabra va en cursiva */
+(function renderHomeTitle() {
+  const raw = (texts.home.title || "Para mi Melcita").trim();
+  const parts = raw.split(/\s+/);
+  const last = parts.pop();
+  const h1 = $("home-title");
+  h1.textContent = "";
+  if (parts.length) h1.append(document.createTextNode(parts.join(" ") + " "));
+  const em = document.createElement("em");
+  em.textContent = last;
+  h1.append(em);
+})();
+
+/* =========================================================
+   CARTAS
+   ========================================================= */
+const messages = Array.isArray(lettersConfig.messages) ? lettersConfig.messages : [];
+const envelopeCount = Number(lettersConfig.envelopeCount) || 0;
+const avoidRepeats = lettersConfig.avoidRepeats !== false;
+const total = Math.min(envelopeCount, messages.length);
+
+let deck = shuffle(messages);
+let openedCount = 0;
+let lastFocused = null;
+let letterTimer = null;
+
+/** Devuelve un mensaje al azar según la opción avoidRepeats. */
+function drawMessage() {
+  if (!avoidRepeats) return messages[Math.floor(Math.random() * messages.length)];
+  if (deck.length === 0) deck = shuffle(messages); // Mazo agotado: se rebaraja
+  return deck.pop();
+}
+
+function buildEnvelopes() {
+  const grid = $("grid");
+
+  if (!total) {
+    grid.hidden = true;
+    $("done").textContent = texts.letters.empty;
+    return;
+  }
+
+  for (let i = 0; i < total; i++) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "envelope";
+    btn.setAttribute("aria-label", `${texts.letters.envelopeLabel} ${i + 1}`);
+    btn.innerHTML = `
+      <span class="body"></span>
+      <span class="paper"></span>
+      <span class="flap"></span>
+      <span class="seal" aria-hidden="true">${texts.letters.sealSymbol}</span>`;
+    btn.addEventListener("click", () => openEnvelope(btn));
+    grid.appendChild(btn);
+  }
+}
+
+function openEnvelope(btn) {
+  lastFocused = btn;
+
+  // Si ya fue abierta, se vuelve a mostrar su mismo mensaje
+  if (!btn._message) {
+    btn._message = drawMessage();
+    btn.classList.add("is-open");
+    openedCount++;
+  }
+
+  // Pequeña pausa para que se vea la animación de la solapa
+  clearTimeout(letterTimer);
+  letterTimer = setTimeout(() => showLetter(btn._message), 450);
+}
+
+function showLetter(msg) {
+  if (!msg) return;
+
+  $("letter-title").textContent = msg.title || "";
+  $("letter-title").hidden = !msg.title;
+  $("letter-text").textContent = msg.text || "";
+
+  const signature = $("letter-signature");
+  signature.textContent = texts.signature;
+  signature.hidden = !texts.signature;
+
+  const overlay = $("letter-overlay");
+  overlay.classList.add("is-visible");
+  overlay.setAttribute("aria-hidden", "false");
+  syncLock();
+  $("close-btn").focus();
+}
+
+function closeLetter(silent = false) {
+  const overlay = $("letter-overlay");
+  if (!overlay.classList.contains("is-visible")) return;
+
+  overlay.classList.remove("is-visible");
+  overlay.setAttribute("aria-hidden", "true");
+  syncLock();
+
+  if (silent) return;
+
+  if (lastFocused) {
+    lastFocused.classList.add("is-read");
+    lastFocused.focus({ preventScroll: true });
+  }
+
+  if (total > 0 && openedCount === total) {
+    $("done").textContent = texts.letters.allRead;
+  }
+}
+
+/* =========================================================
+   ESCRITOS
+   ========================================================= */
+let readerList = [];
+let readerIndex = 0;
+let lastWritingFocus = null;
+
+function renderWritings() {
+  const list = $("writings-list");
+  const filtered = WRITINGS;
+  list.innerHTML = "";
+
+  const label = filtered.length === 1
+    ? texts.writings.countSingular
+    : texts.writings.countPlural;
+  setText("writings-count", `${filtered.length} ${label}`);
+
+  if (!filtered.length) {
+    const empty = document.createElement("p");
+    empty.className = "writing-empty";
+    empty.textContent = texts.writings.empty;
+    list.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach((w, i) => {
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "writing-card";
+    card.style.setProperty("--i", String(i));
+
+    const index = document.createElement("span");
+    index.className = "writing-index";
+    index.setAttribute("aria-hidden", "true");
+    index.textContent = String(i + 1).padStart(2, "0");
+
+    const main = document.createElement("span");
+    main.className = "writing-main";
+
+    const meta = document.createElement("span");
+    meta.className = "writing-meta";
+    meta.textContent = `${readingTime(w.text)} min`;
+
+    const title = document.createElement("span");
+    title.className = "writing-title";
+    title.textContent = w.title || "Sin título";
+
+    const excerpt = document.createElement("span");
+    excerpt.className = "writing-excerpt";
+    excerpt.textContent = excerptOf(w);
+
+    main.append(meta, title, excerpt);
+
+    const arrow = document.createElement("span");
+    arrow.className = "writing-arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+
+    card.append(index, main, arrow);
+    card.addEventListener("click", () => openWriting(w, card));
+    list.appendChild(card);
+  });
+}
+
+function openWriting(writing, trigger) {
+  readerList = WRITINGS;
+  const index = readerList.findIndex(w => w.id === writing.id);
+
+  readerIndex = Math.max(0, index);
+  lastWritingFocus = trigger || null;
+
+  renderReading();
+
+  const overlay = $("writing-overlay");
+  overlay.classList.add("is-visible");
+  overlay.setAttribute("aria-hidden", "false");
+  syncLock();
+
+  const reader = $("reader");
+  reader.scrollTop = 0;
+  reader.focus({ preventScroll: true });
+}
+
+function renderReading() {
+  const w = readerList[readerIndex];
+  if (!w) return;
+
+  setText("writing-kicker", `${readingTime(w.text)} min de lectura`);
+  setText("writing-title", w.title || "Sin título");
+
+  const body = $("writing-body");
+  body.innerHTML = "";
+
+  String(w.text || "")
+    .split(/\n{2,}/)
+    .map(p => p.trim())
+    .filter(Boolean)
+    .forEach(chunk => {
+      const p = document.createElement("p");
+      p.textContent = chunk;
+      body.appendChild(p);
+    });
+
+  const signature = w.signature !== undefined ? w.signature : texts.writings.signature;
+  const signatureEl = $("writing-signature");
+  signatureEl.textContent = signature || "";
+  signatureEl.hidden = !signature;
+
+  $("prev-writing").disabled = readerIndex === 0;
+  $("next-writing").disabled = readerIndex === readerList.length - 1;
+  $("reader").scrollTop = 0;
+}
+
+function stepWriting(direction) {
+  if (!$("writing-overlay").classList.contains("is-visible")) return;
+  const next = readerIndex + direction;
+  if (next < 0 || next >= readerList.length) return;
+  readerIndex = next;
+  renderReading();
+
+  // Si el botón quedó deshabilitado, el foco vuelve al lector
+  if (!document.activeElement || document.activeElement === document.body) {
+    $("reader").focus({ preventScroll: true });
+  }
+}
+
+function closeWriting(silent = false) {
+  const overlay = $("writing-overlay");
+  if (!overlay.classList.contains("is-visible")) return;
+
+  overlay.classList.remove("is-visible");
+  overlay.setAttribute("aria-hidden", "true");
+  syncLock();
+
+  if (!silent && lastWritingFocus && document.body.contains(lastWritingFocus)) {
+    lastWritingFocus.focus({ preventScroll: true });
+  }
+}
+
+/* =========================================================
+   VENTANAS, ATAJOS Y RUTAS
+   ========================================================= */
+function syncLock() {
+  const anyOpen = !!document.querySelector(".overlay.is-visible");
+  document.body.classList.toggle("is-locked", anyOpen);
+
+  // El fondo queda inerte mientras hay una ventana abierta
+  [document.querySelector(".topbar"), $("contenido"), document.querySelector(".site-footer")].forEach(el => {
+    if (!el) return;
+    if (anyOpen) el.setAttribute("inert", "");
+    else el.removeAttribute("inert");
+  });
+}
+
+function trapFocus(e) {
+  if (e.key !== "Tab") return;
+
+  const overlay = document.querySelector(".overlay.is-visible");
+  if (!overlay) return;
+
+  const focusables = Array.from(
+    overlay.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')
+  ).filter(el => el.offsetParent !== null);
+
+  if (!focusables.length) return;
+
+  // Si el foco se escapó del diálogo, vuelve al primer control
+  if (!overlay.contains(document.activeElement)) {
+    e.preventDefault();
+    focusables[0].focus();
+    return;
+  }
+
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+}
+
+const VIEWS = ["inicio", "cartas", "escritos"];
+
+function currentView() {
+  const raw = location.hash.replace(/^#\/?/, "");
+  return VIEWS.includes(raw) ? raw : "inicio";
+}
+
+function renderRoute() {
+  const view = currentView();
+
+  document.querySelectorAll(".view").forEach(section => {
+    section.classList.toggle("is-active", section.dataset.view === view);
+  });
+
+  document.querySelectorAll(".nav a[data-nav]").forEach(link => {
+    if (link.dataset.nav === view) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+
+  document.body.dataset.view = view;
+
+  const base = texts.pageTitle.replace(/[^\p{L}\p{N}\s]/gu, "").trim() || "Para mi Melcita";
+  const titles = {
+    inicio: base,
+    cartas: `${texts.letters.title} · ${base}`,
+    escritos: `${texts.writings.title} · ${base}`
+  };
+  document.title = titles[view];
+
+  clearTimeout(letterTimer);
+  closeLetter(true);
+  closeWriting(true);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Eventos ---------- */
+$("close-btn").addEventListener("click", () => closeLetter());
+$("letter-overlay").addEventListener("click", (e) => {
+  if (e.target === $("letter-overlay")) closeLetter();
+});
+
+$("reader-close").addEventListener("click", () => closeWriting());
+$("prev-writing").addEventListener("click", () => stepWriting(-1));
+$("next-writing").addEventListener("click", () => stepWriting(1));
+$("writing-overlay").addEventListener("click", (e) => {
+  if (e.target === $("writing-overlay")) closeWriting();
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if ($("writing-overlay").classList.contains("is-visible")) {
+      e.preventDefault();
+      closeWriting();
+      return;
+    }
+    if ($("letter-overlay").classList.contains("is-visible")) {
+      e.preventDefault();
+      closeLetter();
+      return;
+    }
+  }
+
+  if ($("writing-overlay").classList.contains("is-visible")) {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      stepWriting(-1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      stepWriting(1);
+    }
+  }
+
+  trapFocus(e);
+});
+
+window.addEventListener("hashchange", renderRoute);
+
+/* ---------- Arranque ---------- */
+buildEnvelopes();
+renderWritings();
+renderRoute();
+</script>
+</body>
+</html>
